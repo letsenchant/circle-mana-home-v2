@@ -43,7 +43,7 @@ export default class App extends React.Component {
                 <input className="TextInput" type="email" name="EMAIL" id="mce-EMAIL" placeholder="Your email" />
                 <button className="Button">Sign me up &rarr;</button>
               </form>
-              
+
             </div>
           </div>
         </section>
@@ -53,6 +53,7 @@ export default class App extends React.Component {
             <div className="col-xs-12 col-sm-6 col-md-5">
               <p>
                 <a href="#">About</a>
+                <a href="https://journal.circleofmana.com">Journal</a>
                 <a href="https://www.instagram.com/circleofmana">Instagram</a>
               </p>
             </div>

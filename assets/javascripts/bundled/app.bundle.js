@@ -21275,6 +21275,11 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "a",
+                { href: "https://journal.circleofmana.com" },
+                "Journal"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "a",
                 { href: "https://www.instagram.com/circleofmana" },
                 "Instagram"
               )
