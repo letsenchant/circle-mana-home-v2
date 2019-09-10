@@ -8,7 +8,7 @@
  1. Base - Setting up some base styles
  ========================================================================== */
 
- * {
+* {
    box-sizing: border-box;
 }
 
@@ -26,11 +26,17 @@ body {
   font-size: 1.7rem;
   line-height: 1.45;
   color: $primary_font_color;
+  background-color: $color_soft_pink;
   @include font-smoothing();
 }
 
-::-moz-selection { background: #D6EDFF; }
-::selection      { background: #D6EDFF; }
+@supports (font-variation-settings: normal) {
+  body { font-family: 'Inter var', sans-serif; }
+}
+
+
+::-moz-selection { background: darken($color_soft_pink, 5%); }
+::selection      { background: darken($color_soft_pink, 5%); }
 
 h1, h2, h3,
 h4, h5, h6 {
@@ -42,50 +48,39 @@ h4, h5, h6 {
   color: $primary_font_color;
   line-height: 1.15em;
   margin: 0 0 0.3em 0;
-  font-family: $header_font_stack;
+  font-family: $primary_font_stack;
 }
 
-h1, h2 {
-  font-size: 2.8rem;
-  margin-bottom:1em;
-  color: #333;
+h1 {
+  font-size: 3.6rem;
+  margin-bottom: 1em;
+  color: #000;
   line-height: 1.2;
   font-feature-settings: normal;
 }
 
-h3 {
-  font-size:2.1rem;
-  font-weight: 700;
-  margin-bottom:1em;
+h2 {
+  font-size: 2.1rem;
+  margin-bottom: 1em;
+  color: #222;
+  line-height: 1.2;
   font-feature-settings: normal;
 }
 
-h4 {
-  font-size: 1.4rem;
-}
-
-h5 {
-  color: rgba(0,0,0,.3);
-  font-size: 1.4rem;
-  font-family: $primary_font_stack;
-  text-transform: uppercase;
-  font-weight: 900;
-  margin-bottom: 1rem;
-}
-
-h6 {
-  font-size: 1.2rem;
-}
+h3 { font-size:2.1rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.4rem; }
+h6 { font-size: 1.2rem; }
 
 a {
   color: $primary_font_color;
   transition: color ease 0.3s;
   text-decoration: underline;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 a:hover {
-  color: $color_teal;
+  color: #000;
   text-decoration: underline;
 }
 
@@ -265,17 +260,6 @@ table.plain tbody > tr:nth-child(odd) > th {
   background: transparent;
 }
 
-iframe, .fluid-width-video-wrapper {
-  display: block;
-  margin: 1.6em 0;
-}
-
-/* When a video is inside the fitvids wrapper, drop the
-margin on the iframe, cause it breaks stuff. */
-.fluid-width-video-wrapper iframe {
-  margin: 0;
-}
-
 img {
   max-width: 100%;
 }
@@ -291,35 +275,11 @@ figure {
     2. Utilities - These things get used a lot
 ========================================================================== */
 
-/* Clears shit */
-.group:before,
-.group:after {
-  content: " ";
-  display: table;
-}
-
-.group:after { clear: both; }
-.group { *zoom: 1; }
-
 /* Hides shit */
 .hidden {
   text-indent: -9999px;
   visibility: hidden;
   display: none;
-}
-
-/* Creates a responsive wrapper that makes our content scale nicely */
-.inner {
-  position: relative;
-  width: 80%;
-  max-width: 780px;
-  margin: 0 auto;
-}
-
-/* Centres vertically yo. (IE8+) */
-.vertical {
-  display: table-cell;
-  vertical-align: middle;
 }
 
 .centered {
@@ -328,710 +288,152 @@ figure {
 }
 
 
-/*  =======================
-    Components
-=========================== */
-
-.wrap {
-  width:92%;
-  max-width:800px;
-  margin:0 auto;
-  position:relative;
-  z-index: 1;
-}
-
-.mid-wrap {
-  max-width: 588px;
-}
-
-
 /* ==========================================================================
     3. App Components - Styles specific to this app
 ========================================================================== */
 
-/*  =======================
-    Portfolio index
-=========================== */
+.App {
+  padding: 3.2rem 4.8rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
+.LogoMark {
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  border-radius: 50%;
+  margin-bottom: 4.8rem;
+  margin-top: 0;
+  background-image: url('../images/LogoMark.svg');
+  background-repeat: no-repeat;
+  background-size: 44px 44px;
+  background-position: center center;
+}
 
-.title {
-  padding-top: 12rem;
-  margin-bottom: 12rem;
-  position: relative;
-
-  h2 { position: relative; }
-
-  h2::before{
-    content: '';
-    display: block;
-    position: absolute;
-    left: -1em;
-    top: -1rem;
-    width: 4px;
-    height: 19rem;
-    background-color: $color_enchant;
-    border-radius: 2px;
+.Intro {
+  h1 {
+    margin-bottom: 3.6rem;
+    @include mq-sm { margin-bottom: 6rem; }
+    @include mq-md { margin-bottom: 10rem; }
   }
 }
 
-.headshots-container {
-  @include mq-personal {
-    position: relative;
-    top: -6em;
-    left: -4em;
-    height: 10em;
-  }
-}
-
-.headshot {
-  width: 165px;
-  border: 4px solid white;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 2px;
-  transform: rotate(4deg);
-  position: absolute;
-  top: 0;
-  right: 0;
-  @include transition;
-
-  &.first {
-    z-index: 3;
-    top: 4em;
-    right: 2em;
-    transform: rotate(3deg);
-
-    &:hover {
-      transform: rotate(1deg) scale(1.06);
-    }
-  }
-
-  &.second {
-    z-index: 2;
-    top: 1em;
-    right: -4em;
-    transform: rotate(18deg);
-
-    &:hover {
-      transform: rotate(12deg) scale(1.1);
-    }
-  }
-
-  &.third {
-    right: 7em;
-    top: 1em;
-    transform: rotate(-5deg);
-
-    &:hover {
-      transform: rotate(-7deg) scale(1.06);
-    }
-  }
-
-  &:hover {
-    z-index:4;
-    @include transition;
-  }
-}
-
-.brief-resume {
-  list-style: none;
-  margin-top: 12rem;
-  margin-bottom: 18rem;
-  padding: 0;
-
-  li {
-    margin-bottom: 1.2rem;
-
-    @include mq-personal {
-      margin-bottom: 2.5em;
-    }
-  }
-
-
-  li:nth-child(2) { color: transparentize($primary_font_color, .35) }
-  li:nth-child(3) { color: transparentize($primary_font_color, .45) }
-  li:nth-child(4) { color: transparentize($primary_font_color, .6) }
-  li:nth-child(5) { color: transparentize($primary_font_color, .6) }
-
-  li a { color: inherit; }
-  li a:hover { color: $color_enchant; }
-}
-
-.time-space-continuum {
-  width: 16rem;
-  display: inline-block;
-}
-
-.the-gig {
-  @include mq-personal {
-    display: block;
-  }
-}
-
-.portfolio {
-  background-color: #FFFBF2;
-  padding: 12rem 0;
-  overflow: hidden;
-  position: relative;
-
-  h2, p {
-    z-index: 1;
-    max-width: 455px;
-  }
-}
-
-.cool-blobs {
-  z-index: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  bottom:0;
-  right: 0;
-  margin: 0;
-  padding: 0;
-  display: block;
-  background-image: url('../images/blobs.svg');
-  background-position-x: right;
-  background-position-y: bottom;
+.HomePhoto {
+  background-color: #fafafa;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.stack-container {
-  z-index: 1;
-  overflow: scroll;
-  width:100%;
-
-  // Hide scrollbar
-  -ms-overflow-style: none;  // IE 10+
-  &::-webkit-scrollbar {
-    display: none;  // Safari and Chrome
-  }
-}
-
-.stack-of-work {
-  display: flex;
-  position: relative;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  z-index: 1;
-  width: 100%;
-  list-style: none;
-  margin-top: 6.4rem;
-  padding: 0 6.4rem;
-
-  @include mq-personal {
-    padding: 0 1.4rem;
-  }
-}
-
-.case-study-preview {
-  flex: 0 0 auto;
-  background-color: white;
-  border-radius: 8px;
-  width: 360px;
-  margin-right: 3.6rem;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  cursor: pointer;
-  @include transition;
-
-  &:hover {
-    transform: scale(1.03);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1),
-                0px 0px 4px rgba(0, 0, 0, 0.1);
-    @include transition;
-  }
-
-  @include mq-personal {
-    max-width: 280px;
-    margin-right: 2.1rem;
-  }
-}
-
-.case-study-image {
-  height: 20.5rem;
-  background-color: gray;
-  margin: 0;
-  background-size: cover;
-
-  @include mq-personal {
-    height: 16rem;
-  }
-
-  &.elementum-transport {
-    background-color: #FAF6ED;
-    background-image: url('../images/preview-elementum-transport.png');
-  }
-
-  &.elementum-situation {
-    background-color: #0C8AA5;
-    background-image: url('../images/preview-elementum-situation.png');
-  }
-
-  &.cfpb-college {
-    background-color: #0C8AA5;
-    background-image: url('../images/preview-cfpb-college.png');
-  }
-
-  &.cfpb-report {
-    background-color: #2F80ED;
-    background-image: url('../images/preview-cfpb-report.png');
-  }
-}
-
-.case-study-content {
-  padding: 3rem;
-
-  @include mq-personal { padding: 2rem; }
-
-  h3 {
-    font-size: 2.4rem;
-    @include mq-personal { font-size: 1.8rem; }
-  }
-
-  a {
-    color: $color_enchant;
-    font-weight: 500;
-  }
-
-  h5 {
-    @include mq-personal { font-size: 1rem; }
-  }
-
-  p {
-    @include mq-personal { font-size: 1.3rem; }
-  }
-
-  button {
-    @include mq-personal { font-size: 1.3rem; }
-  }
-}
-
-.adventures {
-  background-color: #fafafa;
-  padding: 12rem 0;
-  overflow: hidden;
-  position: relative;
-
-  h2, p {
-    z-index: 1;
-    max-width: 455px;
-  }
-}
-
-$number_of_adventure_cards: 4;
-.stack-of-adventures {
-  z-index: 1;
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  list-style: none;
-  margin-top: 6.4rem;
-  padding: 0;
-  margin-left: 6.4rem;
-  min-width: 100%;
-  width: (540px * $number_of_adventure_cards); // should change based on # of cards
-
-  @include mq-personal {
-    margin-left: 2.4rem;
-    width: (280px * $number_of_adventure_cards); // should change based on # of cards
-  }
-}
-
-.adventure-card {
-  display: flex;
-  justify-content: flex-start;
-  background-color: white;
-  width: 520px;
-  margin-right: 3.6rem;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  cursor: pointer;
-  @include transition;
-
-  &:hover {
-    transform: scale(1.03);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1),
-                0px 0px 4px rgba(0, 0, 0, 0.1);
-    @include transition;
-  }
-
-  @include mq-personal {
-    max-width: 240px;
-    flex-direction: column;
-  }
-}
-
-.adventure-image {
-  height: 100%;
-  width: 100%;
-  max-width: 16rem;
-  background-color: lightGray;
-  margin: 0;
-  background-size: cover;
   background-position: center center;
+}
 
-  @include mq-personal {
-    height: 16rem;
-    max-width: 100%;
-  }
+.HomePhoto--mobile {
+  display: block;
+  width: 130%;
+  height: 240px;
+  margin-left: -4.8rem;
+  margin-right: -4.8rem;
+  margin-bottom: 3.6rem;
+  background-image: url('../images/truffles-small.jpg');
 
-  &.ux-book {
-    background-color: #FF8964;
-    background-image: url('../images/ux-book-preview.png');
-  }
-
-  &.designers-hearth {
-    background-color: #ED1C40;
-    background-image: url('../images/meetup-preview.png');
-  }
-
-  &.seishin {
-    background-color: #F6C70B;
-    background-image: url('../images/adventure-seishin.png');
-  }
-
-  &.kale {
-    background-color: #24B47D;
-    background-image: url('../images/kale-preview.png');
-  }
-
-  &.apk {
-    background-color: #2F80ED;
-    background-image: url('../images/apk-preview.png');
-  }
-
-  &.culture-camp {
-    background-color: #FF9D34;
-    background-image: url('../images/adventure-culture-camp.png');
-  }
-
-  &.chef-club {
-    background-color: #BD1833;
-    background-image: url('../images/adventure-chef-club.png');
-  }
-
-  &.cor {
-    background-color: #21A5D5;
-    background-image: url('../images/adventure-cor.png');
-  }
-
-  &.frc-talent {
-    background-color: #03E7B0;
-    background-image: url('../images/adventure-frc-talent.png');
-  }
-
-  &.sohelpful {
-    background-color: #F48854;
-    background-image: url('../images/adventure-sohelpful.png');
+  @include mq-sm {
+    display: none;
   }
 }
 
-.adventure-content {
-  padding: 2rem;
+.HomePhoto--desktop {
+  display: none;
+  background-image: url('../images/truffles-large.jpg');
 
-  h3 {
-    font-size: 1.8rem;
-  }
-
-  p {
-    font-size: 1.3rem;
-    margin-bottom: .5em;
-  }
-
-  a {
-    font-size: 1.3rem;
-    color: $color_enchant;
-    font-weight: 500;
-    margin-bottom: 0;
+  @include mq-sm {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 48%;
+    height: 100vh;
   }
 }
 
-.contact {
-  background-color: #1cdabd;
-  padding: 18rem 0;
-  position: relative;
-}
-
-.a-floating-card-maybe-what-do-you-think-this-is-omg {
-  background-color: white;
-  padding: 4.8rem;
+.TextInput {
   width: 100%;
-  max-width: 470px;
-  margin: 0 auto;
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1),
-              0px 1px 3px rgba(0, 0, 0, 0.15);
+  height: 5.4rem;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  padding: 1.8rem;
+  margin-bottom: 1.8rem;
+  box-sizing: border-box;
   @include transition;
-  @include mq-personal { padding: 2.4rem; }
 
-  &:hover {
-    box-shadow: 0px 10px 18px rgba(0, 0, 0, 0.15),
-                0px 3px 12px rgba(0, 0, 0, 0.1);
+  @include mq-sm { width: auto; }
+
+  &:focus {
+    border: 1px solid #000;
+    outline: none;
     @include transition;
   }
 }
 
-.me-on-the-web {
-  margin-top: 4.8rem;
-  @include mq-personal { padding-left: 1em; }
-
-  li {
-    margin-bottom: .5em;
-  }
-}
-
-.footer-footer-footer {
-  text-align:center;
-  font-size: 1.2rem;
-  position: absolute;
-  bottom: 1em;
+.Button {
   width: 100%;
-  color: #0a5146;
-
-  a { color: #0a5146; }
-  a:hover { color: transparentize($primary_font_color, .2); }
-}
-
-
-.fab {
-  width: 56px;
-  height: 56px;
+  text-decoration: none;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 1.8rem 3.2rem;
+  border-radius: 4px;
   border: none;
-  border-radius: 50%;
-  background-color: #E91F64;
-  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  font-weight: bold;
   @include transition;
+  @include mq-sm { width: auto; }
 
   &:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,.25),
-                0 1px 3px rgba(0,0,0,.15);
-    background-color: lighten(#E91F64, 6%);
-
+    background-color: #222;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
     @include transition;
   }
 
   &:active {
-    outline: none;
+    @include transition;
     box-shadow: none;
-    background-color: darken(#E91F64, 5%);
-    @include transition;
+    transform: translateY(1px);
+    background-color: #000;
   }
 }
 
-.button-link {
-  border: none;
-  outline: none;
-  background-color: transparent;
-  color: #E91F64;
-  text-decoration: underline;
-  @include transition;
+.Newsletter {
+  h3 {
+    font-size: 1.5rem;
+  }
 
-  &:hover {
-    color: $primary_font_color;
-    @include transition;
+  p {
+    font-size: 1.5rem;
   }
 }
 
-.icon {
-  position: relative;
-  display: block;
-  width: 24px;
-  height: 24px;
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  &.icon-back {
-    left: 7px;
-    background-size: 15px 24px;
-    background-image: url('../images/icon-back.png');
-  }
-}
-
-// --------------------
-// Project page
-// --------------------
-
-
-.project-page {
-  background-color: white;
-}
-
-.project-title {
-  font-size: 2.8em;
-  line-height: 1.2;
+.Footer {
+  padding: 9.6rem 0 3.2rem;
   text-align: center;
 
-  @include mq-tablet {
-    font-size: 2.1em;
+  @include mq-sm {
+    margin-top: auto;
+    padding: 0;
     text-align: left;
   }
-}
 
-.project-page h4 {
-  font-size: 1em;
-  font-weight: bold;
-  font-family: $primary_font_stack;
-  line-height: 1.54;
-  margin-top: 2em;
-}
-
-.image-subtext {
-  font-size: .8em;
-  font-style: italic;
-  color: #637282;
-  text-align: center;
-}
-
-.project-nav {
-  position: fixed;
-  top:0;
-  left:0;
-  width: 100%;
-  height: 54px;
-  background-color: rgba(255,255,255,.92);
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
-  z-index: 7;
-
-  .project-meta {
-    margin-bottom: 0;
-    position: relative;
-    top: 1em;
-    left: 6em;
-  }
-}
-
-.project-nav .fab {
-  position: fixed;
-  top: 25px;
-  left: 2em;
-}
-
-.project-page-header {
-  position: relative;
-  width:100%;
-  margin-bottom: 2em;
-  height: 480px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  @include mq-tablet {
-    height: inherit;
-    height: 360px;
-  }
-
-  &.elementum-transport {
-    background-color: #1b9ebc;
-    background-image: url('http://cl.ly/image/1y1s1Y1w1N1C/Elementum%20image.png');
-  }
-
-  &.elementum-situation {
-    background-color: #1b9ebc;
-    background-image: url('http://paulmederos.s3.amazonaws.com/enchant/case-studies/britt-sit_room.png');
-  }
-
-  &.cfpb-college {
-    background-color: #1b9ebc;
-    // background-image: url('http://paulmederos.s3.amazonaws.com/enchant/case-studies/britt-cfpb-college-header.png');
-    background-image: url('https://images.unsplash.com/photo-1503676382389-4809596d5290?ixlib=rb-1.2.1&auto=format&fit=crop&w=1955&q=80');
-
-  }
-
-  &.cfpb-report {
-    background-color: #1b9ebc;
-    background-image: url('https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
-  }
-}
-
-.project-content {
-  padding-top: 54px;
-  min-height: 1000px;
-
-  h3 {
-    margin-top: 3em;
-  }
-}
-
-.mini-study-notice {
-  padding: 1em;
-  border-radius: 4px;
-  background-color: #fffee0;
-  text-align: center;
-  font-size: .8em;
-  box-shadow: 0 1px 3px rgba(0,0,0,.15), 0 2px 8px rgba(0,0,0,.05);
-}
-
-.objectives {
-  padding-left: 1em;
-  border-left: 4px solid $color_enchant;
-}
-
-.project-footer {
-  margin-top: 54px;
-  border-top: 2px solid #F0F0F0;
-  padding-top: 54px;
-  padding-bottom: 54px;
-
-  button {
-    background-color: transparent;
-    border: none;
-    outline: none;
+  p { margin-bottom: 0; }
+  a {
+    margin-right: 1.5em;
+    text-decoration: none;
     font-weight: bold;
+    font-size: 1.3rem;
+    color: transparentize(#33333d, .1);
 
-    &:hover { text-decoration: underline; }
+    &:hover {
+      text-decoration: underline;
+      color: #000;
+    }
   }
-}
-
-.carousel-title {
-  margin-top: 4em;
-  font-family: $primary_font_stack;
-  font-weight: 900;
-  font-size: 15px;
-  color: #AAAAAA;
-  text-transform: uppercase;
-  padding-left: 4%;
-}
-
-.carousel-wrap {
-  width: 100%;
-  overflow-x: scroll;
-  padding-left: 4%;
-}
-
-.carousel-container {
-  width: 1380px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li { display: inline-block; }
-}
-
-.source-shot {
-  position: relative;
-  display: block;
-  top: 0;
-  margin: 0 1.5em 0 0;
-  background-color: #E5E5E5;
-  border:none;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  @include transition;
-
-  &:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0,0,0,.15);
-    @include transition;
-  }
-}
-
-.wip-shots .source-shot {
-  width:400px;
-  height: 300px;
-}
-
-.product-shots .source-shot {
-  width: 267px;
-  height: 267px;
 }

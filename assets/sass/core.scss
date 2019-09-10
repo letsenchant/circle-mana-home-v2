@@ -4,15 +4,11 @@
 
 @import "fonts";
 
-$color_slate: #2D2333;
-$color_warm_slate: #595050;
-$color_hearth: #FF9456;
-$color_enchant: #E91F64;
-$color_teal: #1cdabd;
+$color_dark: #33333d;
+$color_soft_pink: #FFF2ED;
 
-$primary_font_color: $color_slate;
-$primary_font_stack: "Inter UI", "San Francisco", "Roboto", "Droid Sans", sans-serif;
-$header_font_stack: "Bookmania", "Georgia", serif;
+$primary_font_color: $color_dark;
+$primary_font_stack: "Inter", "San Francisco", "Roboto", "Droid Sans", sans-serif;
 
 $material-curve: cubic-bezier(.62,.28,.23,.99);
 
@@ -35,20 +31,28 @@ $material-curve: cubic-bezier(.62,.28,.23,.99);
   transition: $type $duration $function;
 }
 
-// For tabelts and mid-sized mobile devices. Typically 54em.
-@mixin mq-tablet {
-  @media (max-width: 54em) {
+// Media queries (based on Flexbox Grid sizes)
+@mixin mq-sm {
+  @media only screen and (min-width: 48em) {
     @content;
   }
 }
 
-// For smartphones and personal (small) mobile devices. Typically 30em.
-@mixin mq-personal {
-  @media  (max-width: 30em) {
+@mixin mq-md {
+  @media only screen and (min-width: 64em) {
     @content;
   }
 }
 
+@mixin mq-lq {
+  @media only screen and (min-width: 75em) {
+    @content;
+  }
+}
+
+
+// The rest of the stylesheets, in order.
 @import "normalize";
 @import "animate";
+@import "flexboxgrid";
 @import "main";

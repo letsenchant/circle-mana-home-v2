@@ -1,86 +1,66 @@
 import React from 'react'
 
-import Header from './Header'
-import Portfolio from './Portfolio'
-import Projects from './Projects'
-import Contact from './Contact'
-
-import CFPBCollege from './projects/CFPBCollege'
-import CFPBReport from './projects/CFPBReport'
-import ElementumTransport from './projects/ElementumTransport'
-import ElementumSituation from './projects/ElementumSituation'
-
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      visibleProject: null
-    }
-
-    this.handleCardPressed = this.handleCardPressed.bind(this)
-    this.handleWorkPageClosed = this.handleWorkPageClosed.bind(this)
-  }
-
-  componentWillMount(){
-    var location = window.location.hash.replace(/^#\/?|\/$/g, '').split('/')[0]
-    location ? location : null
-
-    this.setState({
-      animateHome: true,
-      visibleProject: location,
-    })
+    this.state = {}
   }
 
   render() {
-    return this.state.visibleProject ?
-              this.renderProject(this.state.visibleProject) :
-              this.renderHome()
-  }
-
-  renderHome(){
     return (
-      <div>
-        <Header shouldAnimate={this.state.shouldAnimateHome} />
-        <Portfolio shouldAnimate={this.state.shouldAnimateHome} onCardPressed={this.handleCardPressed}/>
-        <Projects shouldAnimate={this.state.shouldAnimateHome} />
-        <Contact shouldAnimate={this.state.shouldAnimateHome} />
-      </div>
+      <main className="App">
+        <section className="Intro">
+          <div className="row">
+            <div className="col-xs-12 col-sm-6 col-md-5">
+              <figure className="LogoMark"></figure>
+              <h1>
+                Unwind with incredibly delicious plant-based chocolates.
+              </h1>
+            </div>
+
+            <aside className="HomePhoto HomePhoto--mobile"></aside>
+          </div>
+        </section>
+
+        <section className="Newsletter">
+          <div className="row">
+            <div className="col-xs-12 col-sm-6 col-md-4">
+              <h3>🔥 Get on the Hot Drop newsletter</h3>
+              <p>
+                We release new chocolates in limited quantities
+                to keep production quality high with our tiny team.
+              </p>
+
+              <form
+                action="https://circleofmana.us4.list-manage.com/subscribe/post?u=a3debcba484884720338e35cf&amp;id=8b92537473"
+                method="post"
+                id="mc-embedded-subscribe-form"
+                name="mc-embedded-subscribe-form"
+                className="validate"
+                target="_blank"
+                novalidate
+              >
+                <input className="TextInput" type="email" name="EMAIL" id="mce-EMAIL" placeholder="Your email" />
+                <button className="Button">Sign me up &rarr;</button>
+              </form>
+              
+            </div>
+          </div>
+        </section>
+
+        <footer className="Footer">
+          <div className="row">
+            <div className="col-xs-12 col-sm-6 col-md-5">
+              <p>
+                <a href="#">About</a>
+                <a href="https://www.instagram.com/circleofmana">Instagram</a>
+              </p>
+            </div>
+          </div>
+        </footer>
+
+        <aside className="HomePhoto HomePhoto--desktop"></aside>
+      </main>
     )
   }
-
-  renderProject(project){
-    switch(project) {
-      case 'elementum-transport':
-        return <ElementumTransport onClosePressed={this.handleWorkPageClosed}/>
-        break;
-      case 'elementum-situation':
-        return <ElementumSituation onClosePressed={this.handleWorkPageClosed}/>
-        break;
-      case 'cfpb-college':
-        return <CFPBCollege onClosePressed={this.handleWorkPageClosed}/>
-        break;
-      case 'cfpb-report':
-        return <CFPBReport onClosePressed={this.handleWorkPageClosed}/>
-        break;
-    }
-  }
-
-  handleCardPressed(project){
-    console.log("Card pressed for project: ", project)
-    this.setState({
-      visibleProject: project
-    })
-    window.location.hash = project
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
-  }
-
-  handleWorkPageClosed(){
-    this.setState({
-      shouldAnimateHome: false,
-      visibleProject: null
-    })
-    window.location.hash = ''
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
-  }
-
 }
